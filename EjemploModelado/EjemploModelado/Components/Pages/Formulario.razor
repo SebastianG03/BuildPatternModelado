@@ -1,0 +1,46 @@
+﻿@page "/formulario"
+@attribute [StreamRendering]
+
+<PageTitle>Formulario</PageTitle>
+
+
+<h3>Llene el siguiente formulario para estimar su presupuesto.</h3>
+
+<EditForm  OnValidSubmit="@SubmitForm">
+    <!-- <DataAnnotationsValidator />  -->
+
+    <div>
+        <label>Tipo de Computadora:</label>
+        <InputSelect class="form-control" required>
+            <option value="">Selecciona...</option>
+        </InputSelect>
+    </div>
+
+    <div>
+        <label>Procesador:</label>
+        <InputSelect @bind-Value="procesador" class="form-control" required>
+            <option value="">Selecciona...</option>
+            <option value="i5">Intel Core i5</option>
+            <option value="i7">Intel Core i7</option>
+            <option value="ryzen5">AMD Ryzen 5</option>
+        </InputSelect>
+        <ValidationMessage For="@(() => procesador)" />
+    </div>
+
+    <div>
+        <label>Memoria RAM:</label>
+        <InputSelect @bind-Value="memoriaRAM" class="form-control" required>
+            <option value="">Selecciona...</option>
+            <option value="8GB">8GB</option>
+            <option value="16GB">16GB</option>
+            <option value="32GB">32GB</option>
+        </InputSelect>
+        <ValidationMessage For="@(() => memoriaRAM)" />
+    </div>
+
+    <!-- Agrega más combos según sea necesario -->
+
+    <div>
+        <button type="submit">Configurar</button>
+    </div>
+</EditForm>
