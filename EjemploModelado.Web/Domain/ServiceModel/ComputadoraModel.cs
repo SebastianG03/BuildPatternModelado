@@ -1,4 +1,4 @@
-﻿namespace EjemploModelado.Web.Domain.ServiceModel
+﻿namespace EjemploModelado.Web.ServiceModel
 {
     public class ComputadoraModel
     {

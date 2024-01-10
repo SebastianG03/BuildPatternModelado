@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EjemploModelado.Builder", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuilderAPI", "..\..\..\Desktop\Programming\BuilderComputadoraAPI\BuilderAPI\BuilderAPI.csproj", "{49F38353-3BD2-422A-90AE-141833916C92}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EjemploModelado.Web", "EjemploModelado.Web\EjemploModelado.Web.csproj", "{62333E4E-727F-49BF-A8A1-A8399197E2BE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EjemploModelado.Web2", "EjemploModelado.Web\EjemploModelado.Web2.csproj", "{62333E4E-727F-49BF-A8A1-A8399197E2BE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
