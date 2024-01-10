@@ -1,6 +1,7 @@
-﻿using EjemploModelado.Builder;
+﻿
+using EjemploModelado.Web.Domain.Builder;
 
-namespace EjemploModelado.Web.Services
+namespace EjemploModelado.Web.Domain.Services
 {
     public class ApiServiceComponente
     {

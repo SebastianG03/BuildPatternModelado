@@ -1,0 +1,56 @@
+﻿@page "/tabla"
+@using EjemploModelado.Web.Domain.Builder
+@using EjemploModelado.Web.Domain.ServiceModel
+@using EjemploModelado.Web.Domain.Services
+
+<h3>Tabla</h3>
+
+@if(computadoras.Count == 0)
+{
+    <div>
+        <h4>No hay computadoras, genera más con el formulario</h4>
+    </div>
+}
+else
+{
+    <section>
+        <div>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Memoria RAM (GB)</th>
+                        <th>Almacenamiento (GB)</th>
+                        <th>Núcleos del Procesador</th>
+                        <th>Puertos USB</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var computadora in computadoras)
+                    {
+                        <tr>
+                            <td>@computadora.MemoriaRam</td>
+                            <td>@computadora.Almacenamiento</td>
+                            <td>@computadora.NucleosProcesador</td>
+                            <td>@computadora.PuertosUsb</td>
+                            <td>
+                                <button class="btn btn-primary">
+                                    <i class="bi bi-eye"></i> Ver
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </section>
+}
+
+@code {
+    List<ComputadoraModel> computadoras = new List<ComputadoraModel>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        computadoras = await ApiServiceComputadora.Singleton().GetComputadoras();
+    }
+}
