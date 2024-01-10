@@ -1,18 +1,26 @@
-﻿
-using EjemploModelado.Builder;
+﻿using EjemploModelado.Builder;
 
-namespace EjemploModelado.Services
+namespace EjemploModelado.Domain.Services
 {
     public class ApiServiceComponente
     {
+        private static ApiServiceComponente? _instancia;
         static HttpClient client;
 
         private string _url = "https://localhost:7234/api/Compontente";
 
 
-        public ApiServiceComponente() => client = new HttpClient();
-        
-        
+        private ApiServiceComponente() => client = new HttpClient();
+
+        public static ApiServiceComponente Singleton()
+        {
+            if (_instancia == null)
+            {
+                _instancia = new ApiServiceComponente();
+            }
+            return _instancia;
+        }
+
 
         public async Task<List<Componente>> GetComponentes()
         {

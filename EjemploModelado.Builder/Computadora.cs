@@ -14,7 +14,7 @@ namespace EjemploModelado.Builder
         public int NucleosProcesador { get; set; }
         public int PuertosUsb { get; set; }
 
-        public List<string> Componentes = new List<string>();
+        public List<Componente> Componentes = new List<Componente>();
 
     }
 }

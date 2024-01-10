@@ -8,58 +8,29 @@ namespace EjemploModelado.Builder
 {
     public class ConstruirComputara : IBuilder
     {
-        public Computadora computadora;
+        public Computadora Computadora { get; set; }
 
-        public ConstruirComputara()
+        public ConstruirComputara() => Computadora = new Computadora();
+        
+
+        public void AgregarComponentes(Componente componente)
         {
-            computadora = new Computadora();
+            if (Computadora.Componentes == null)
+                Computadora.Componentes = new List<Componente>();
+            Computadora.Componentes.Add(componente);
         }
 
-        public void AgregarComponentes(string componente)
-        {
-            if (computadora.Componentes == null)
-                computadora.Componentes = new List<string>();
-            computadora.Componentes.Add(componente);
-        }
+        public void SetAlmacenamiento(int almacenamiento) => Computadora.Almacenamiento = almacenamiento;
+        
+        public void SetMemoriaRam(int memoriaRam) => Computadora.MemoriaRam = memoriaRam;
+        
+        public void SetNucleosProcesador(int nucleosProcesador) => Computadora.NucleosProcesador = nucleosProcesador;
+     
 
-        public void SetAlmacenamiento(int almacenamiento)
-        {
+        public void SetPuertosUsb(int puertosUsb) => Computadora.PuertosUsb = puertosUsb;
 
-            computadora.Almacenamiento = almacenamiento;
-        }
-
-        public void SetMemoriaRam(int memoriaRam)
-        {
-
-            computadora.MemoriaRam = memoriaRam;
-        }
-
-        public void SetNucleosProcesador(int nucleosProcesador)
-        {
-
-            computadora.NucleosProcesador = nucleosProcesador;
-        }
-
-        public void SetPuertosUsb(int puertosUsb)
-        {
-
-            computadora.PuertosUsb = puertosUsb;
-        }
-
-        public void Reset()
-        {
-
-            computadora = new Computadora();
-        }
-
-        public void Union()
-        {
-            string components = computadora.Componentes.Aggregate((i, j) => i + j);
-            Console.WriteLine(components);
-        }
-
-        public Computadora Computadora => computadora;
-
+        public void Reset() => Computadora = new Computadora();
+       
 
     }
 }

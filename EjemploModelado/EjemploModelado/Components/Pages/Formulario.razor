@@ -1,12 +1,17 @@
 ﻿@page "/formulario"
 @attribute [StreamRendering]
 
+@{
+    @    using EjemploModelado.Builder
+    @    using Services
+}
+
 <PageTitle>Formulario</PageTitle>
 
 
 <h3>Llene el siguiente formulario para estimar su presupuesto.</h3>
 
-<EditForm  OnValidSubmit="@SubmitForm">
+<EditForm Model="@Computadora" OnValidSubmit="@SubmitForm">
     <!-- <DataAnnotationsValidator />  -->
 
     <div>
@@ -44,3 +49,13 @@
         <button type="submit">Configurar</button>
     </div>
 </EditForm>
+
+
+@code{
+    ApiServiceComponente serviceComponente = new ApiServiceComponente;
+    List<Componente> componentes = new List<Componentes>();
+
+    protected override async Task OnInitializedAsync() {
+
+    }
+}
