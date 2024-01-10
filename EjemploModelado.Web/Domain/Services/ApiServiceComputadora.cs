@@ -1,62 +1,58 @@
 ﻿using EjemploModelado.Web.Domain.Builder;
 using EjemploModelado.Web.Domain.ServiceModel;
+using System.Net.Http.Json;
 
 namespace EjemploModelado.Web.Domain.Services
 {
     public class ApiServiceComputadora
     {
-        private static ApiServiceComputadora? _instancia;
-        static HttpClient client;
+        private static readonly ApiServiceComputadora _instancia = new ApiServiceComputadora();
+        private static readonly HttpClient _client = new HttpClient();
 
         private string _url = "https://localhost:7234/api/Computadora";
 
+        private ApiServiceComputadora() { }
 
-        private ApiServiceComputadora() => client = new HttpClient();
+        public static ApiServiceComputadora Singleton => _instancia;
 
-        public static ApiServiceComputadora Singleton()
+        public async Task<List<ComputadoraModel>?> GetComputadoras()
         {
-            if (_instancia == null)
+            try
             {
-                _instancia = new ApiServiceComputadora();
+                return await _client.GetFromJsonAsync<List<ComputadoraModel>>(_url);
             }
-            return _instancia;
-        }
-
-        public async Task<List<ComputadoraModel>> GetComputadoras()
-        {
-            List<ComputadoraModel>? lista = new List<ComputadoraModel>();
-            var client = new HttpClient();
-            HttpResponseMessage response = await client.GetAsync(_url);
-
-            if (response.IsSuccessStatusCode)
+            catch (Exception ex)
             {
-                lista = await response.Content.ReadAsAsync<List<ComputadoraModel>>();
+                Console.WriteLine($"Error al obtener computadoras: {ex.Message}");
+                return null;
             }
-            return lista;
         }
 
         public async Task<bool> PostComputadora(ComputadoraModel computadora)
         {
-            var response = await client.PostAsJsonAsync(_url, computadora);
-            if (response.IsSuccessStatusCode)
+            try
             {
+                var response = await _client.PostAsJsonAsync(_url, computadora);
                 return response.IsSuccessStatusCode;
             }
-            return false;
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al agregar nueva computadora: {ex.Message}");
+                return false;
+            }
         }
 
-        public async Task<Computadora> GetComputadoraById(int Id)
+        public async Task<Computadora> GetComputadoraById(int id)
         {
-            Computadora computadora = null;
-            var client = new HttpClient();
-            HttpResponseMessage response = await client.GetAsync($"{_url}/{Id}");
-
-            if (response.IsSuccessStatusCode)
+            try
             {
-                computadora = await response.Content.ReadAsAsync<Computadora>();
+                return await _client.GetFromJsonAsync<Computadora>($"{_url}/{id}");
             }
-
-            return computadora;
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al obtener computadora por ID: {ex.Message}");
+                return null;
+            }
         }
     }
 }
