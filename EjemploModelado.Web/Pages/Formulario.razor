@@ -31,25 +31,24 @@
 
             <div class="form-group">
                 <label for="Componentes" class="form-label">Componentes:</label>
-                @foreach (var componente in componentes)
+                @for (int i = 0; i < componentes.Count; i++)
                 {
                     <div>
-                        <InputCheckbox @bind="componente" />
+                        <InputCheckbox @bind-Value="check[i]" />
+                        <label>@componentes[i].Descripcion</label>
                     </div>
                 }
             </div>
-
         </div>
 
-        <button type="submit" class="custom-button"> Crear </button>
-
+        <button type="submit" class="custom-button">Crear</button>
     </EditForm>
-
 </div>
+
 @code {
     Computadora configuracion = new Computadora();
     List<Componente> componentes = new List<Componente>();
-
+    List<bool> check;
 
     public async Task<bool> SubmitForm()
     {
@@ -59,16 +58,16 @@
                 Almacenamiento = configuracion.Almacenamiento,
                 NucleosProcesador = configuracion.NucleosProcesador,
                 PuertosUsb = configuracion.PuertosUsb,
-                ComponentesIds = configuracion.Componentes.Select(x => x.Id)
+                ComponentesIds = componentes.Where((c, i) => check[i]).Select(x => x.Id)
             };
 
         return await ApiServiceComputadora.Singleton().PostComputadora(computadoraModel);
-
     }
 
     protected override async Task OnInitializedAsync()
     {
+        Console.Write("Inicio");
         componentes = await ApiServiceComponente.Singleton().GetComponentes();
+        check = new List<bool>(componentes.Count);
     }
-
 }

@@ -5,10 +5,10 @@
 
 <h3>Tabla</h3>
 
-@if(computadoras.Count == 0)
+@if (computadoras.Count == 0)
 {
     <div>
-        <h4>No hay computadoras, genera más con el formulario</h4>
+        <h4>No hay computadoras. Genera más con el formulario.</h4>
     </div>
 }
 else
@@ -47,7 +47,7 @@ else
 }
 
 @code {
-    List<ComputadoraModel> computadoras = new List<ComputadoraModel>();
+    List<ComputadoraModel> computadoras;
 
     protected override async Task OnInitializedAsync()
     {
