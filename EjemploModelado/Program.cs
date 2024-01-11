@@ -1,5 +1,6 @@
 using EjemploModelado.Components;
 using EjemploModelado.Web.Domain.Services;
+using Microsoft.Net.Http.Headers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,7 +11,9 @@ builder.Services.AddRazorComponents()
 ApiServiceComputadora.Singleton();
 ApiServiceComponente.Singleton();
 
-var app = builder.Build();
+
+
+
 
 
 // Configure the HTTP request pipeline.

@@ -30,17 +30,20 @@
                 <InputNumber id="PuertosUSB" @bind-Value="configuracion.PuertosUsb" class="form-input" />
             </div>
 
-            <div class="form-group">
+            @{
+
+                /* <div class="form-group">
                 <label for="Componentes" class="form-label">Componentes:</label>
-                @foreach(Componente component in componentes)
+                @foreach (Componente component in componentes)
                 {
-                    <div>
-                        <!--- <InputCheckbox -Value="check[component.Id]" /> -->
-                        <label>@component.Descripcion</label>
-                    </div>
+                <div>
+                <label>@component.Descripcion</label>
+                </div>
 
                 }
-            </div>
+                </div>*/
+            }
+
         </div>
 
         <button class="custom-button">Crear</button>
@@ -50,9 +53,8 @@
 @code {
     Computadora configuracion = new Computadora();
     List<Componente> componentes = new List<Componente>();
-    List<bool> check = new List<bool>();
 
-    public async Task<bool> OnSubmit()
+    private async Task<bool> OnSubmit()
     {
         ComputadoraModel computadoraModel = new ComputadoraModel
             {
@@ -60,7 +62,7 @@
                 Almacenamiento = configuracion.Almacenamiento,
                 NucleosProcesador = configuracion.NucleosProcesador,
                 PuertosUsb = configuracion.PuertosUsb,
-                ComponentesIds = componentes.Where((c, i) => check[i]).Select(x => x.Id)
+                ComponentesIds = new List<int> { 1, 3, 5 }
             };
 
         return await ApiServiceComputadora.Singleton().PostComputadora(computadoraModel);
@@ -70,8 +72,8 @@
     {
         Console.Write("Inicio");
         componentes = await ApiServiceComponente.Singleton().GetComponentes();
-        check.Capacity = componentes.Count;
-        foreach (var componente in componentes) {
+        foreach (var componente in componentes)
+        {
             Console.WriteLine("ID: " + componente.Id + " | Descripcion: " + componente.Descripcion);
         }
 
