@@ -62,13 +62,13 @@
                 ComponentesIds = componentes.Where((c, i) => check[i]).Select(x => x.Id)
             };
 
-        return await ApiServiceComputadora.Singleton.PostComputadora(computadoraModel);
+        return await ApiServiceComputadora.Singleton().PostComputadora(computadoraModel);
     }
 
     protected override async Task OnInitializedAsync()
     {
         Console.Write("Inicio");
-        componentes = await ApiServiceComponente.Singleton.GetComponentes();
+        componentes = await ApiServiceComponente.Singleton().GetComponentes();
         check = new List<bool>(componentes.Count);
         foreach (var componente in componentes) {
             Console.WriteLine("ID: " + componente.Id + " | Descripcion: " + componente.Descripcion);

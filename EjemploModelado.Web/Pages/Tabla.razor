@@ -51,6 +51,6 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        computadoras = await ApiServiceComputadora.Singleton.GetComputadoras();
+        computadoras = await ApiServiceComputadora.Singleton().GetComputadoras();
     }
 }

@@ -6,14 +6,21 @@ namespace EjemploModelado.Web.Domain.Services
 {
     public class ApiServiceComputadora
     {
-        private static readonly ApiServiceComputadora _instancia = new ApiServiceComputadora();
+        private static ApiServiceComputadora _instancia;
         private static readonly HttpClient _client = new HttpClient();
 
         private string _url = "https://localhost:7234/api/Computadora";
 
         private ApiServiceComputadora() { }
 
-        public static ApiServiceComputadora Singleton => _instancia;
+        public static ApiServiceComputadora Singleton()
+        {
+            if (_instancia == null)
+            {
+                _instancia = new ApiServiceComputadora();
+            }
+            return _instancia;
+        }
 
         public async Task<List<ComputadoraModel>?> GetComputadoras()
         {

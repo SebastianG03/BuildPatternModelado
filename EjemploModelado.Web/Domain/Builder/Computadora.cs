@@ -14,6 +14,7 @@ namespace EjemploModelado.Web.Domain.Builder
         public int NucleosProcesador { get; set; }
         public int PuertosUsb { get; set; }
 
+
         public List<Componente> Componentes = new List<Componente>();
 
     }
