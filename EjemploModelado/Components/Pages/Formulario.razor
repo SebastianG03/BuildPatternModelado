@@ -1,0 +1,79 @@
+﻿@page "/formulario"
+@using EjemploModelado.Web.Domain.Builder
+@using EjemploModelado.Web.Domain.Services
+@using EjemploModelado.Web.Domain.ServiceModel
+@using Microsoft.AspNetCore.Components.Forms
+
+<PageTitle>Formulario</PageTitle>
+
+<h3>Llene el siguiente formulario para estimar su presupuesto.</h3>
+<div class="container">
+    <EditForm Model="@configuracion" OnSubmit="OnSubmit" FormName="Formulario">
+        <div class="container">
+            <div class="form-group">
+                <label for="MemoriaRam" class="form-label">Memoria Ram:</label>
+                <InputNumber id="MemoriaRam" @bind-Value="configuracion.MemoriaRam" class="form-input" />
+            </div>
+
+            <div class="form-group">
+                <label for="Almacenamiento" class="form-label">Almacenamiento:</label>
+                <InputNumber id="Almacenamiento" @bind-Value="configuracion.Almacenamiento" class="form-input" />
+            </div>
+
+            <div class="form-group">
+                <label for="NucleosProcesador" class="form-label">Núcleos del Procesador:</label>
+                <InputNumber id="NucleosProcesador" @bind-Value="configuracion.NucleosProcesador" class="form-input" />
+            </div>
+
+            <div class="form-group">
+                <label for="PuertosUSB" class="form-label">Número de puertos USB:</label>
+                <InputNumber id="PuertosUSB" @bind-Value="configuracion.PuertosUsb" class="form-input" />
+            </div>
+
+            <div class="form-group">
+                <label for="Componentes" class="form-label">Componentes:</label>
+                @foreach(Componente component in componentes)
+                {
+                    <div>
+                        <!--- <InputCheckbox -Value="check[component.Id]" /> -->
+                        <label>@component.Descripcion</label>
+                    </div>
+
+                }
+            </div>
+        </div>
+
+        <button class="custom-button">Crear</button>
+    </EditForm>
+</div>
+
+@code {
+    Computadora configuracion = new Computadora();
+    List<Componente> componentes = new List<Componente>();
+    List<bool> check = new List<bool>();
+
+    public async Task<bool> OnSubmit()
+    {
+        ComputadoraModel computadoraModel = new ComputadoraModel
+            {
+                MemoriaRam = configuracion.MemoriaRam,
+                Almacenamiento = configuracion.Almacenamiento,
+                NucleosProcesador = configuracion.NucleosProcesador,
+                PuertosUsb = configuracion.PuertosUsb,
+                ComponentesIds = componentes.Where((c, i) => check[i]).Select(x => x.Id)
+            };
+
+        return await ApiServiceComputadora.Singleton().PostComputadora(computadoraModel);
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        Console.Write("Inicio");
+        componentes = await ApiServiceComponente.Singleton().GetComponentes();
+        check.Capacity = componentes.Count;
+        foreach (var componente in componentes) {
+            Console.WriteLine("ID: " + componente.Id + " | Descripcion: " + componente.Descripcion);
+        }
+
+    }
+}

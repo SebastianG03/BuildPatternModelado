@@ -38,7 +38,7 @@ namespace EjemploModelado.Web.Domain.Services
 
             } catch (HttpRequestException ex)
             {
-                Console.Write(ex.Message );
+                Console.Write(ex.Message);
                 throw;
             }            
         }

@@ -8,8 +8,8 @@ builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
 
-/*builder.Services.AddSingleton<ApiServiceComponente>();
-builder.Services.AddSingleton<ApiServiceComputadora>();*/
+builder.Services.AddSingleton<ApiServiceComponente>();
+builder.Services.AddSingleton<ApiServiceComputadora>();
 
 ApiServiceComputadora.Singleton();
 ApiServiceComponente.Singleton();
