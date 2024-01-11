@@ -16,6 +16,5 @@ namespace EjemploModelado.Web.Domain.Builder
 
 
         public List<Componente> Componentes = new List<Componente>();
-
     }
 }

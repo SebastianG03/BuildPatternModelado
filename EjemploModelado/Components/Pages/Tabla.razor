@@ -22,23 +22,34 @@ else
                         <th>Almacenamiento (GB)</th>
                         <th>Núcleos del Procesador</th>
                         <th>Puertos USB</th>
-                        <th>Acciones</th>
+                        <th>Componentes</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var computadora in computadoras)
                     {
-                        <tr>
-                            <td>@computadora.MemoriaRam</td>
-                            <td>@computadora.Almacenamiento</td>
-                            <td>@computadora.NucleosProcesador</td>
-                            <td>@computadora.PuertosUsb</td>
-                            <td>
-                                <button class="btn btn-primary">
-                                    <i class="bi bi-eye"></i> Ver
-                                </button>
-                            </td>
-                        </tr>
+                        @if(computadora.MemoriaRam != 0 || computadora.NucleosProcesador != 0)
+                        {
+                            <tr>
+                                <td>@computadora.MemoriaRam</td>
+                                <td>@computadora.Almacenamiento</td>
+                                <td>@computadora.NucleosProcesador</td>
+                                <td>@computadora.PuertosUsb</td>
+                                <td>
+                                    @if (componentesComputadora.ContainsKey(computadora) && componentesComputadora[computadora] != null)
+                                    {
+                                        foreach (var componente in componentesComputadora[computadora])
+                                        {
+                                            <div>@componente.Descripcion</div>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <div>No hay componentes asociados</div>
+                                    }
+                                </td>
+                            </tr>
+                        }
                     }
                 </tbody>
             </table>
@@ -48,9 +59,23 @@ else
 
 @code {
     List<ComputadoraModel> computadoras = new List<ComputadoraModel>();
+    List<Componente> componentes = new List<Componente>();
+    Dictionary<ComputadoraModel, List<Componente>> componentesComputadora = new Dictionary<ComputadoraModel, List<Componente>>();
 
     protected override async Task OnInitializedAsync()
     {
         computadoras = await ApiServiceComputadora.Singleton().GetComputadoras();
+        componentes = await ApiServiceComponente.Singleton().GetComponentes();
+        /*
+        foreach (var computadora in computadoras)
+        {
+            if(computadora.MemoriaRam != 0 || computadora.NucleosProcesador != 0)
+            {
+                var componentesAsociados = componentes.Where(c => computadora.ComponentesIds.Contains(c.Id)).ToList();
+                componentesComputadora.Add(computadora, componentesAsociados);
+                Console.WriteLine("Componentes " + componentesAsociados.Count);
+            }
+
+        }*/
     }
 }
