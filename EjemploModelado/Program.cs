@@ -11,7 +11,7 @@ builder.Services.AddRazorComponents()
 ApiServiceComputadora.Singleton();
 ApiServiceComponente.Singleton();
 
-
+var app = builder.Build();
 
 
 
