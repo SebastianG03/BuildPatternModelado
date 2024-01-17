@@ -8,6 +8,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
+
+
 ApiServiceComputadora.Singleton();
 ApiServiceComponente.Singleton();
 

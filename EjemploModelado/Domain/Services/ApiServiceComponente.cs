@@ -25,7 +25,7 @@ namespace EjemploModelado.Web.Domain.Services
             }
             return _instancia;
         }
-        
+
 
         public async Task<List<Componente>> GetComponentes()
         {
@@ -36,11 +36,12 @@ namespace EjemploModelado.Web.Domain.Services
                 Console.WriteLine(res);
                 return res;
 
-            } catch (HttpRequestException ex)
+            }
+            catch (HttpRequestException ex)
             {
                 Console.Write(ex.Message);
                 throw;
-            }            
+            }
         }
     }
 }

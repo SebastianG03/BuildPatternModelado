@@ -4,45 +4,33 @@
 @using EjemploModelado.Web.Domain.ServiceModel
 @using Microsoft.AspNetCore.Components.Forms
 
+@rendermode InteractiveServer
+
 <PageTitle>Formulario</PageTitle>
 
 <h3>Llene el siguiente formulario para estimar su presupuesto.</h3>
 <div class="container">
-    <EditForm Model="@configuracion" OnSubmit="OnSubmit" FormName="Formulario">
+    <EditForm Model="@configuracion" OnSubmit="@OnSubmit" FormName="Configuracion">
         <div class="container">
             <div class="form-group">
-                <label for="MemoriaRam" class="form-label">Memoria Ram:</label>
-                <InputNumber id="MemoriaRam" @bind-Value="configuracion.MemoriaRam" class="form-input" />
+                <label for="configuracion.MemoriaRam" class="form-label">Memoria Ram:</label>
+                <InputNumber @bind-Value="configuracion!.MemoriaRam" class="form-input" />
             </div>
 
             <div class="form-group">
-                <label for="Almacenamiento" class="form-label">Almacenamiento:</label>
-                <InputNumber id="Almacenamiento" @bind-Value="configuracion.Almacenamiento" class="form-input" />
+                <label for="configuracion.Almacenamiento" class="form-label">Almacenamiento:</label>
+                <InputNumber @bind-Value="configuracion!.Almacenamiento"  class="form-input" />
             </div>
 
             <div class="form-group">
-                <label for="NucleosProcesador" class="form-label">Núcleos del Procesador:</label>
-                <InputNumber id="NucleosProcesador" @bind-Value="configuracion.NucleosProcesador" class="form-input" />
+                <label for="configuracion.NucleosProcesador" class="form-label">Núcleos del Procesador:</label>
+                <InputNumber @bind-Value="configuracion!.NucleosProcesador" class="form-input" />
             </div>
 
             <div class="form-group">
-                <label for="PuertosUSB" class="form-label">Número de puertos USB:</label>
-                <InputNumber id="PuertosUSB" @bind-Value="configuracion.PuertosUsb" class="form-input" />
+                <label for="configuracion.PuertosUSB" class="form-label">Número de puertos USB:</label>
+                <InputNumber @bind-Value="configuracion!.PuertosUsb" class="form-input" />
             </div>
-
-            @{
-
-                /* <div class="form-group">
-                <label for="Componentes" class="form-label">Componentes:</label>
-                @foreach (Componente component in componentes)
-                {
-                <div>
-                <label>@component.Descripcion</label>
-                </div>
-
-                }
-                </div>*/
-            }
 
         </div>
 
@@ -51,11 +39,19 @@
 </div>
 
 @code {
-    Computadora configuracion = new Computadora();
+    Computadora configuracion { get; set; } = new Computadora();
+
+    
     List<Componente> componentes = new List<Componente>();
 
     private async Task<bool> OnSubmit()
     {
+        Console.WriteLine($"MemoriaRam: {configuracion.MemoriaRam}");
+        Console.WriteLine($"Almacenamiento: {configuracion.Almacenamiento}");
+        Console.WriteLine($"NucleosProcesador: {configuracion.NucleosProcesador}");
+        Console.WriteLine($"PuertosUsb: {configuracion.PuertosUsb}");
+
+
         ComputadoraModel computadoraModel = new ComputadoraModel
             {
                 MemoriaRam = configuracion.MemoriaRam,
